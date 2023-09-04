@@ -1,14 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userAPI } from "../../../../services/userService";
-import { postAPI } from "../../../../services/postService";
+import { postAPI } from "entities/Post";
 
 export const store = configureStore({
   reducer: {
-    [userAPI.reducerPath]: userAPI.reducer,
     [postAPI.reducerPath]: postAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userAPI.middleware, postAPI.middleware),
+    getDefaultMiddleware().concat(postAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
