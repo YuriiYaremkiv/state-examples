@@ -1,9 +1,12 @@
 import { userAPI } from "../services/userService";
+import { postAPI } from "../services/postService";
 
 export const App = () => {
   const { data, error, isLoading } = userAPI.useFetchAllUsersQuery("");
+  const { data: posts } = postAPI.useFetchAllPostsQuery(5);
 
-  console.log("data", data);
+  console.log("posts", posts);
+
   if (isLoading) return <div>Is Loading...</div>;
 
   if (error && !isLoading) return <div>Error</div>;
@@ -11,8 +14,8 @@ export const App = () => {
   if (data?.length > 0 && !isLoading) {
     return (
       <ul>
-        {data?.map((user: any) => (
-          <li key={user.id}>{user.name}</li>
+        {posts?.map((post: any) => (
+          <li key={post.title}>{post.title}</li>
         ))}
       </ul>
     );
